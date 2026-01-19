@@ -1,0 +1,70 @@
+{
+    "name": "GigamonCustomDCR",
+    "apiVersion": "2026-09-01-preview",
+    "type": "Microsoft.Insights/dataCollectionRules",
+    "location": "[parameters('workspace-location')]",
+    "properties": {
+        "streamDeclarations": {
+          "Custom-gigamontelemetryv2": {
+            "columns": [
+              { "name":"TenantId", "type":"string"},
+              { "name":"SourceSystem", "type":"string"},
+              { "name":"MG", "type":"string"},
+              { "name":"TimeGenerated", "type":"datetime"},
+              { "name":"ManagementGroupName", "type":"string"},
+              { "name":"RawData", "type":"string"},
+              { "name":"ts_s", "type":"string"},
+              { "name":"vendor_s", "type":"string"},
+              { "name":"version_s", "type":"string"},
+              { "name":"generator_s", "type":"string"},
+              { "name":"dst_mac_s", "type":"string"},
+              { "name":"src_mac_s", "type":"string"},
+              { "name":"device_inbound_interface_s", "type":"string"},
+              { "name":"app_id_s", "type":"string"},
+              { "name":"src_ipv6_s", "type":"string"},
+              { "name":"dst_ipv6_s", "type":"string"},
+              { "name":"ip_version_s", "type":"string"},
+              { "name":"next_hdr_v6_s", "type":"string"},
+              { "name":"src_bytes_s", "type":"string"},
+              { "name":"dst_bytes_s", "type":"string"},
+              { "name":"src_packets_s", "type":"string"},
+              { "name":"dst_packets_s", "type":"string"},
+              { "name":"start_time_s", "type":"string"},
+              { "name":"end_time_s", "type":"string"},
+              { "name":"intf_name_s", "type":"string"},
+              { "name":"egress_intf_id_s", "type":"string"},
+              { "name":"app_name_s", "type":"string"},
+              { "name":"id_s", "type":"string"},
+              { "name":"seq_num_s", "type":"string"},
+              { "name":"src_ip_s", "type":"string"},
+              { "name":"dst_ip_s", "type":"string"},
+              { "name":"protocol_s", "type":"string"},
+              { "name":"src_port_s", "type":"string"},
+              { "name":"dst_port_s", "type":"string"},
+              { "name":"Type", "type":"string"},
+              { "name":"_ResourceId", "type":"string"}
+              ]}},
+
+              "destinations": {
+            "logAnalytics": [
+                {
+                    "workspaceResourceId": "[variables('workspaceResourceId')]",
+                    "name": "gigamonws1"
+                }
+            ]
+        },
+
+      "dataFlows": [
+            {
+                "streams": [
+                    "Custom-gigamontelemetryv2"
+                ],
+                "destinations": [
+                    "gigamonws1"
+                ],
+                "transformKql": "source",
+                "outputStream": "Custom-gigamontelemetryv2_CL"
+            }],
+      "dataCollectionEndpointId": "{{dataCollectionEndpointsId}}"
+    }
+}
